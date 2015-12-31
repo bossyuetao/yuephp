@@ -1,0 +1,13 @@
+
+.kefu {width:100px;height:60px;position:absolute;top:0px;}
+.kefu .kftop{background:url("top.gif") no-repeat;height:20px;}
+.kefu .kfbottom{background:url("bottom.gif") no-repeat;height:14px;}
+.kefu .kfbox {border-left:1px solid #DDE6EC;border-right:1px solid  #DDE6EC;overflow:hidden;zoom:1;padding:1px;background:#FFF;color:#D3D3D3;line-height:26px;}
+.kefu .kfbox ul {padding-left:6px;}
+.kefu .kfbox ul li.tit {color:#800000;}
+.kefu .kfbox ul li img {vertical-align:middle;}
+.kefu .open , .kefu .close {CURSOR:pointer;position:absolute;overflow:hidden;zoom:1;}
+.kefu .open  {width:30px;height:110px;background:url("open.jpg");}
+.kefu .close {top:0;right:0;width:25px;height:25px;background:url("close.gif");}
+.kefu .open.on {background:url(open.jpg);}
+ 

@@ -1,0 +1,41 @@
+
+
+*:focus {outline: none;}
+/* fade */
+.YpBox-fade{background-color:#000000;}
+/* drag */
+.YpBox-drag{border:1px dashed #376EA5;}
+/* YpBox */
+div.YpBox {padding:0px;border:none;font-size:12px;}
+/* border */
+div.YpBox .YpBox-border{background: none repeat scroll 0 0 #000000;filter:alpha(opacity=20);-moz-opacity:0.2;opacity:0.2;}
+/* container */
+div.YpBox .YpBox-container{background-color:#ffffff;border:1px solid #999999;}
+/* title-panel */
+div.YpBox .YpBox-title-panel{background:#376EA5;border-bottom:1px solid #CCCCCC;}
+div.YpBox .YpBox-title{font-weight:bold;color:#ffffff;}
+div.YpBox .YpBox-title-icon{background:url(../Images/box/YpBox-title-icon.gif) no-repeat scroll 3px 5px transparent;}
+div.YpBox .YpBox-close,div.YpBox .YpBox-close-hover{background:url(../Images/box/YpBox-close1.gif) no-repeat scroll 0px 0px transparent;}
+div.YpBox .YpBox-close-hover{background-position:-16px 0;}
+/* content */
+div.YpBox .YpBox-content{min-height:24px;line-height:18px;color:#444444;}
+div.YpBox .YpBox-content-loading{background-color:#E6E6E6;}
+div.YpBox .YpBox-content-loading-image{background:url(../Images/box/YpBox-content-loading.gif) no-repeat bottom center;}
+/* button-panel */
+div.YpBox .YpBox-button-panel{border-top:1px solid #CCCCCC;background-color: #EEEEEE;}
+div.YpBox .YpBox-bottom-text{text-indent:10px;color:#444444;}
+div.YpBox .YpBox-button{background:url(../Images/box/YpBox-button2.png) repeat-x transparent;border:#AAAAAA 1px solid;color:#888888;border-radius:3px 3px 3px 3px;margin:1px 7px 0px 0px;height:22px;cursor:default;}
+div.YpBox .YpBox-button-hover{background-position:0px -20px;color:#666666;}
+div.YpBox .YpBox-button-active{background-position:0px -40px;}
+div.YpBox-warning .YpBox .YpBox-button-panel{background-color: #FFFFFF;}
+/* tip-color */
+div.YpBox .YpBox-tip-color{background-color:#376EA5;border-color:#376EA5;border-radius:3px 3px 3px 3px;color:#ffffff;}
+/* icons */
+div.YpBox span.YpBox-icon{background:url(../Images/box/YpBox-icons.png) no-repeat scroll 0 0 transparent;_background:url(../Images/box/YpBox-icons-ie6.gif) no-repeat scroll 0 0 transparent;}
+div.YpBox span.YpBox-icon-info {background-position:0 0;}
+div.YpBox span.YpBox-icon-question {background-position:-36px 0;}
+div.YpBox span.YpBox-icon-success {background-position:-72px 0;}
+div.YpBox span.YpBox-icon-warning {background-position:-108px 0;}
+div.YpBox span.YpBox-icon-error {background-position:-144px 0;}
+div.YpBox span.YpBox-icon-none {display: none; overflow:hidden;}
+div.YpBox span.YpBox-icon-loading {background:url(../Images/box/YpBox-loading1.gif) no-repeat scroll 0 0 transparent;}

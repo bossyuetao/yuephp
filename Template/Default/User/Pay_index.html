@@ -1,0 +1,67 @@
+ 
+ 
+	<div class="right">
+		 
+			<h5 class="title"><b> {L(USER_PAYMENT_RECORDS)}</b></h5>
+			 	<table  class="search_table" width="100%">
+				<tr>
+					<td class="search">
+						<form action="{:U($module_name.'/record')}" method="get">
+						<input type="hidden" name="g" value="{GROUP_NAME}" />
+						<input type="hidden" name="m" value="{MODULE_NAME}" />
+						<input type="hidden" name="a" value="{ACTION_NAME}" />
+ 
+{L(PAY_TIME_1)}:
+<input  class="Wdate input-text  "  validate=" required:true"  style="width:100px;" name="start_time" type="text" id="start_time" size="15" DateFormat="yyyy-MM-dd" value="{if $start_time}{todate($start_time,"Y-m-d")}{/if}" />{L(PAY_TIME_2)} 
+<input  class="Wdate input-text  "  validate=" required:true"  style="width:100px;" name="end_time" type="text" id="end_time" size="15" DateFormat="yyyy-MM-dd" value="{if $end_time}{todate($end_time,"Y-m-d")}{/if}" />
+
+						<select id="status" name="status">
+						<option value="">{L('PAY_STATUS')}</option>
+						{for $n=1; $n<=4; $n++}
+							<option value="{$n}"{if $n==$status} selected="selected"{/if}>{L('PAY_STATUS_'.$n)}</option>
+						{/for} 
+						</select> 
+						<input type="submit" value="{:L('chaxun')}"  class="button" />
+						</form>
+					</td>
+
+				</tr>
+			</table>
+
+			<form name="YpForm" id="YpForm" action="" method="post"><div class="table-list">
+				<table width="100%" cellspacing="0">
+					<thead>
+						<tr>
+						<th width="140">{L('PAY_NO')}</th>
+					    <th width="140" align="center">{L('createtime')}</th>
+						<th width="70">{L('PAY_TYPE')}</th>
+						<th width="70">{L('PAY_MANEY')}</th>
+						<th width="70">{L('PAY_STATUS')}</th>
+						<th width="80">{L('MANAGE')}</th>
+						</tr>
+					</thead>
+					<tbody>
+					{loop $list $r}
+						<tr>
+						<td align="center"><a href="{:U('Pay/payshow?id='.$r['id'])}">{$r['sn']}</a></td>
+						<td  align="center">{todate($r['createtime'],"Y-m-d H:i:s")}</td>
+						<td align="center">{$r['payment']}</td>
+						<td align="center">{if $r['type']==1}{$r['money']}{L('yuan')}{else}{intval($r['money'])}{L('DIAN')}{/if}</td>
+						<td align="center">
+						{if $r[status]==2}
+							<font style="color:#008000">{L('PAY_STATUS_'.$r[status])}</font>
+						{else}
+							<font style="color:#CC0000">{L('PAY_STATUS_'.$r[status])}</font>
+						{/if}
+						</td>
+						<td align="center"><a href="{:U('Pay/payshow?id='.$r['id'])}">{L('PAY_VIEW')}</a></td>
+						</tr>
+					{/loop}
+					</tbody>
+				</table> 
+			</form></div>
+
+			<div id="pages" class="page">{$page}</div>
+		 
+	</div>
+ 

@@ -1,0 +1,24 @@
+{template Home/header}
+<script type="text/javascript" src="YP_PUB/Js/jquery.YpBox.min.js"></script>
+<script type="text/javascript">
+jQuery.YourphpInc(['YP_PUB/Js/yourphp.admin.min.js','images/order/order.css',"css/member.css",'YP_PUB/Css/YpBox.css','YP_PUB/Css/Wdate.css']);
+</script>
+
+<div id="member">
+	{if $module_name!='Login' && $module_name!='Register' } 
+	{template menu}
+	{/if}
+
+	{__CONTENT__}
+	<div class="c"></div><br>
+	<div id="user_footer">
+	<a href="/">{:L('HOME_FONT')}</a>
+	{YP:subcat  catid="0"}
+	{loop $data $r} |  <a href="{$r.url}">{$r.catname}</a>{/loop}
+	{/YP}
+	<br>
+	Powered by {if !YP_KEY}<a href="http://www.yourphp.cn">Yourphp  </a>{else}<a href="{$site_url}">{$site_name}</a>{/if}  © 2011  
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+ 
+ 
+<form name="myform" action="{:U('Pay/payed')}" method="post" id="myform">
+	<table width="100%" class="table_form">
+	<tr>
+	<td  width="120">{L(PAY_PAYMENT_TYPE)}</td> 
+	<td><input name="type" value="1" type="radio" id="pay_type" checked> {L(PAY_SPEND_TYPE_1)}  
+	<input name="type" value="2" type="radio" id="pay_type"> {L(PAY_SPEND_TYPE_2)} </td>
+	</tr>
+	<tr>
+	<td  width="120">{L(USERNAME)}</td> 
+	<td><input type="text" name="username" size="15" value="" id="username"><span id="balance"><span></td>
+	</tr>
+	<tr>
+	<td  width="120">{L(PAY_MANEY)}</td> 
+	<td><input name="pay_unit" value="1" type="radio" checked> {L(PAY_pay_unit_1)}  <input name="pay_unit" value="0" type="radio"> {L(PAY_pay_unit_2)} <input type="text" name="money" size="10" value="" id="unit"></td>
+	</tr>
+	<tr>
+	<td  width="120">{L(PAY_USERNOTE)}</td> 
+	<td><textarea name="usernote"  id="usernote" rows="5" cols="50"></textarea></td>
+	</tr>
+	<tr>
+	<td  width="120">{L(PAY_is_sendemail)}</td> 
+	<td><label><input type="checkbox" id="sendemail" name="sendemail" value="1" checked> {L(PAY_is_sendemail_1)}</label></td>
+	</tr>
+	</table>
+	<div class="bk15"></div>
+	<input name="dosubmit" type="submit" value="{L(PAY_dosubmit)}" class="button" id="dosubmit">
+</form>
+
+ 

@@ -1,0 +1,61 @@
+ 
+ 
+	<div class="right">
+			<h5 class="title"><b>{L(ONLINE_PAY)}</b></h5>
+			 
+					<form method='get'  id="YpForm" action="{:U('User/Pay/payed')}"> 
+					<input type="hidden" name="g" value="User"><input type="hidden" name="m" value="Pay"><input type="hidden" name="a" value="payed">
+						<table width="100%" cellspacing="0" class="table_form">
+							<tr>
+							   <th width="80">{L('PAY_USER_AMOUNT')}：</th>        
+							   <td style="padding:0 0 0 10px"><font style="color:#F00; font-size:22px;font-family:Georgia,Arial; font-weight:700">{$vo['amount']}</font> {L('YUAN')}</td>
+							</tr>
+							 <tr>
+							<th>{L('PAY_MANEY')}：</th>
+							<td><input name="price" type="text" id="price" size="8" value="" class="input-text"  validate=" minlength:1, maxlength:6, required:true" >&nbsp;{L('YUAN')}<span id="msgid"></span></td>
+							 </tr>
+						  <tr>
+							   <th>{L('PAY_TYPE')}：</th>
+							   <td> 
+									<select id="pay_id" name="pay_id"  validate=" minlength:1, maxlength:6, required:true"  title="{L('PAY_TIP_required_payment')}">
+									 <option value="">{L('PLEASE_CHOSE')}</option>
+									   {loop $payment $r}
+									   <option value="{$r.id}">{$r.pay_name}</option>
+									   {/loop}
+								   </select>
+								</td>
+							 </tr>
+						  <tr>		
+							<th>E-mail：</th>
+							   <td><input name="email" type="text" id="email" size="30" value="{$vo['email']}"  class="input-text"/></td>
+							 </tr>
+							 <tr>
+							   <th>{L(PAY_USERNAME)}：</th>
+							   <td><input name="contactname" type="text" id="contactname" size="30" value="{$vo['username']}"  class="input-text"/></td>
+							 </tr>
+							 <tr>
+							   <th>{L(PAY_TEL)}：</th>
+							   <td><input name="telephone" type="text" id="telephone" size="30"  class="input-text" value="{$vo['telephone']}"/> <span id="msgid1" ></span></td>
+							 </tr>
+							 
+							 <tr>
+							   <th>{L(PAY_USERNOTE)}：</th>
+							   <td><textarea name="usernote"  id="usernote" rows="5" cols="50" value=></textarea></td>
+							 </tr>
+							 <tr>
+							   <th>{:L('verify')}：</th>
+							   <td><input name="verifyCode" class="input-text"  class="inputbox" id="verifyCode"  size="6" value="" maxlength="4" /><img src="{:U('Home/Index/verify')}" onclick="javascript:resetVerifyCode();" class="checkcode" align="absmiddle"  title="{:L('resetVerifyCode')}" id="verifyImage"/></td>
+							 </tr>
+							 <tr>
+							   <td></td>
+							   <td colspan="2"><label>
+								 <input type="submit" name="dosubmit" id="dosubmit" value="{L('PAY_dosubmit')}" class="button"/>
+								 </label></td>
+							 </tr>
+						   </table>
+ 
+					</form>
+
+		 
+	</div>
+ 

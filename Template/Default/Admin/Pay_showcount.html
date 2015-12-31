@@ -1,0 +1,81 @@
+
+			 	<table  class="search_table" width="100%">
+				<tr>
+					<td class="search">
+						<form action="{:U($module_name.'/record')}" method="get">
+						<input type="hidden" name="m" value="{MODULE_NAME}" />
+						<input type="hidden" name="a" value="{ACTION_NAME}" />
+
+						{L('USERNAME')}: <input type="text" class="input-text" name="username" value="{$username}">
+ 
+						{L(PAY_TIME_1)}:
+						<input  class="Wdate input-text  "  validate=" required:true"  style="width:100px;" name="start_time" type="text" id="start_time" size="15" DateFormat="yyyy-MM-dd" value="{if $start_time}{todate($start_time,"Y-m-d")}{/if}" />{L(PAY_TIME_2)} 
+						<input  class="Wdate input-text  "  validate=" required:true"  style="width:100px;" name="end_time" type="text" id="end_time" size="15" DateFormat="yyyy-MM-dd" value="{if $end_time}{todate($end_time,"Y-m-d")}{/if}" />
+
+						<select id="status" name="status">
+						<option value="">{L('PAY_STATUS')}</option>
+						{for $n=1; $n<=4; $n++}
+							<option value="{$n}"{if $n==$status} selected="selected"{/if}>{L('PAY_STATUS_'.$n)}</option>
+						{/for} 
+						</select> 
+						<input type="hidden" id="menuid" name="menuid" value="{intval($_GET['menuid'])}"/>
+						<input type="submit" value="{:L('chaxun')}"  class="button" />
+						</form>
+					</td>
+
+				</tr>
+			</table>
+		<div class="table-list">
+			
+<style>
+.table_form b {color:#FF0000;}
+.table_form strong {color:#008000}
+</style>
+<br>
+			<fieldset>
+				<legend>{L(PAY_COUNT)}</legend>
+				<table width="100%" class="table_form">
+				  <tbody>
+				  <tr>
+					<th width="80">总交易量</th>
+					<td>金钱&nbsp;&nbsp;<b>{intval($count_money_num)}</b> 笔（成功交易&nbsp;&nbsp;<strong>{intval($count_ok_money_num)}</strong> 笔）<br/>积分&nbsp;&nbsp;<b>{intval($count_point_num)}</b> 笔（成功交易&nbsp;&nbsp;<strong>{intval($count_ok_point_num)}</strong> 笔）</td>
+				  </tr>   
+				  <tr>
+					<th width="80">总金额</th>
+					<td><b>{$count_money}</b> &nbsp;元（成功交易&nbsp;&nbsp;<strong>{$count_ok_money}</strong>&nbsp;元）<br/><b>{intval($count_point)}</b>&nbsp;点（成功交易&nbsp;&nbsp;<strong>{intval($count_ok_point)}</strong>&nbsp;点）</td>
+				  </tr>
+				  </tbody>
+				</table>
+			</fieldset>
+			<div class="c"></div><br>	{if $user_count}
+			<fieldset>
+				<legend>{L(PAY_QUERY)}</legend>
+				
+			
+				<table width="100%" class="table_form">
+				  <tbody>
+				  <tr>
+					<th width="80">总交易量</th>
+					<td>金钱&nbsp;&nbsp;<b>{intval($user_count_money_num)}</b> 笔（成功交易&nbsp;&nbsp;<strong>{intval($user_count_ok_money_num)}</strong> 笔）<br/>积分&nbsp;&nbsp;<b>{intval($user_count_point_num)}</b> 笔（成功交易&nbsp;&nbsp;<strong>{intval($user_count_ok_point_num)}</strong> 笔）</td>
+				  </tr>   
+				  <tr>
+					<th width="80">总金额</th>
+					<td><b>{$user_count_money}</b> &nbsp;元（成功交易&nbsp;&nbsp;<strong>{$user_count_ok_money}</strong>&nbsp;元）<br/><b>{intval($user_count_point)}</b>&nbsp;点（成功交易&nbsp;&nbsp;<strong>{intval($user_count_ok_point)}</strong>&nbsp;点）</td>
+				  </tr>
+				  </tbody>
+				</table>
+				
+			</fieldset>{/if}
+
+
+
+
+
+			<style>
+			.pay_count{padding:8px 10px;background:#EFEFEF;text-align:right;}
+			.pay_count b {color:#FF0000;}
+			</style>
+			 
+		 
+	</div>
+ 

@@ -1,0 +1,21 @@
+
+<form id="YpForm" name="YpForm" action="{:U('Menu/listorder')}" method="post">
+<div class="table-list">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+            <th width="40">{:L('listorder')}</th>
+            <th width="20">id</th>
+            <th>{:L('menu_name')}</th>
+			<th width="40">{:L('status')}</th>
+			<th width="170">{:L('manage')}</th>
+            </tr>
+        </thead>
+	<tbody>
+    {$select_categorys}
+	</tbody>
+    </table>  
+    <div class="btn"><input type="submit" class="button" name="dosubmit" value="{L('listorder')}" /></div>  </div>
+</div>
+</form></div>
+<!--Yourphp企业建站系统 www.yourphp.cn-->

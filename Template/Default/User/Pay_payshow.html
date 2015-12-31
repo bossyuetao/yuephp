@@ -1,0 +1,53 @@
+
+	<div class="right">
+			<h5 class="title"><b> {:L(PAY_SHOW_INFO)}</b></h5>
+			 	 
+						<table width="100%" cellspacing="0" class="table_form">
+
+							 <tr>
+							<th>{:L('PAY_NO')}:</th>
+							<td>{$vo.sn} &nbsp;&nbsp;(<a href="javascript:history.go(-1);">{L('RETURN')}</a>)</td>
+							 </tr>
+
+							 <tr>
+							<th>{:L('PAY_MANEY')}:</th>
+							<td><font color="red"><b>{if $vo['type']==1}{$vo.money}{else}{intval($vo['money'])}{/if}</b></font>&nbsp;{if $vo['type']==1}{L('yuan')}{else}{L('DIAN')}{/if}</td>
+							 </tr>
+						  <tr>
+							   <th>{:L('PAY_TYPE')}:</th>
+							   <td> 
+									 {$vo['payment']}
+								</td>
+							 </tr>
+						  <tr>		
+							<th>{:L('PAY_USER_EMAIL')}:</th>
+							   <td> {$vo['email']}</td>
+							 </tr>
+							 <tr>
+							   <th>{:L('PAY_USER_NAME')}:</th>
+							   <td>{$vo['contactname']}</td>
+							 </tr>
+							 <tr>
+							   <th>{:L('PAY_USER_TEL')}:</th>
+							   <td>{$vo['telephone']}</td>
+							 </tr>
+							 
+							 <tr>
+							   <th>{:L('PAY_USER_NOTE')}:</th>
+							   <td>{$vo['usernote']}</td>
+							 </tr>
+							 {if $vo['status']==1}
+							 <tr>
+							   <td>&nbsp;</td>
+							   <td colspan="2"><label>
+								 {$paybutton}
+								 </label></td>
+							 </tr>
+							 {/if}
+				</table>
+				
+					
+
+		 
+	</div>
+ 

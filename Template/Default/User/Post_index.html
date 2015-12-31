@@ -1,0 +1,113 @@
+
+	<div class="right">
+			<h5 class="title"><b>{:L(USER_POST)}{:L(MANAGE)}</b></h5>
+			 
+			<table  class="search_table" width="100%">
+				<tr>
+					<td class="search">
+						<form action="{:U($module_name.'/index')}" method="get">
+						<input type="hidden" name="g" value="{GROUP_NAME}" />
+						<input type="hidden" name="m" value="{MODULE_NAME}" />
+						<input type="hidden" name="a" value="{ACTION_NAME}" />
+						<input type="hidden" id="moduleid" name="moduleid" value="{$moduleid}" />
+						<input id="title" type="text" class="input-text" name="keyword" value="{$_GET[keyword]}" />
+						<select name="searchtype">
+						{if $fields['name']}<option value="title" {if $searchtype =='name'}selected="selected"{/if}>{:L('name')}</option>{/if}
+						{if $fields['title']}<option value="title" {if $searchtype =='title'}selected="selected"{/if}>{:L('title')}</option>{/if}
+						{if $fields['username']}<option value="username" {if $searchtype =='username'}selected="selected"{/if}>{:L('username')}</option>{/if}
+						{if $fields['keywords']}<option value="keywords" {if $searchtype=='keywords'}selected="selected"{/if}>{:L('keywords')}</option>{/if}
+						<option value="id" {if $searchtype =='id'}selected="selected"{/if}>ID</option>
+						</select>
+						{if $fields['catid']}
+						<select id="catid" name="catid">
+						<option value="">{:L('select_category')}</option>
+						{$select_categorys}
+						</select>
+						{/if}
+
+						{if $fields['typeid']}
+						<select id="typeid" name="typeid">
+						<option value="">{:L('select_typeid')}</option>
+						{loop $Type $row}
+						{if $row['parentid']==$fields['typeid']['setup']['default']}<option value="{$row['typeid']}" {if $row['typeid']=='typeid'}selected="selected"{/if}>{$row['name']}</option>{/if}
+						{/loop}
+						</select>
+						{/if}
+
+ 
+						<select id="status" name="status">
+						<option value="">{:L('status')}</option>
+						<option value="0" {if isset($status) && $status ==0}selected="selected"{/if}>{:L(noshenhe)}</option>
+						<option value="1" {if isset($status) && $status ==1}selected="selected"{/if}>{:L(isshenhe)}</option>
+						</select>
+
+
+						<select id="order" name="order">
+						<option value="listorder" {if $order =='listorder'}selected="selected"{/if}>{:L('listorder')}</option>
+						<option value="id" {if $order =='id'}selected="selected"{/if}>ID{:L('listorder')}</option>
+						{if $fields['hits']}<option value="hits" {if $order =='hits'}selected="selected"{/if}>{:L('hits')}{:L('listorder')}</option>{/if}
+						</select>
+
+						<select name="sort">
+							<option value="asc" {if $sort =='asc'}selected="selected"{/if}>{:L('order_by_asc')}</option>
+							<option value="desc" {if $sort =='desc'}selected="selected"{/if}>{:L('order_by_desc')}</option>
+						</select>
+
+						 
+						<input type="submit" value="{:L('chaxun')}"  class="button" />
+						</form>
+					</td>
+
+				</tr>
+			</table>
+
+			<form name="YpForm" id="YpForm" action="" method="post">
+
+			<div class="table-list">
+				<table width="100%" cellspacing="0">
+					<thead>
+						<tr>
+						<th width="40">ID</th>
+						<th>{:L('title')}</th>
+					    <th width="120" align="center">{:L('createtime')}</th>
+						<th width="72">{:L('manage')}</th>
+						</tr>
+					</thead>
+					<tbody>
+					{loop $list $vo}
+						<tr>
+						<td align="center">{$vo['id']}</td>
+						<td>{if $vo['catid']}[<font color="green">{$Categorys[$vo['catid']]['catname']}</font>]{/if} <a href="{$vo.url}" {if $vo['title_style']!=''}style ="{$vo['title_style']}"{/if} target="_blank">{$vo['title']} </a>
+						{if $vo['thumb']!=''}<img src="YP_PUB/Images/admin_image.gif">{/if}
+						{if $vo['posid']!=0}<img src="YP_PUB/Images/admin_elite.gif">{/if}</td>
+						<td align="center">{todate($vo['createtime'],"Y-m-d H:i:s")}</td>
+						<td align="center">
+						{if  $vo['status']}<font color="green">{:L(status_ok)}</font>{else}
+						<a href="{:U($module_name.'/edit',array(moduleid=>$moduleid,id=>$vo['id']))}">{:L('edit')}</a> 
+						{/if}
+						</td>
+						</tr>
+					{/loop}
+					</tbody>
+				</table>
+ 
+				</form></div>
+
+				<div id="pages" class="page">{$page}</div>
+				<script>
+				$("#catid").attr("value",'{$catid}');
+				function confirm_deleteall(){
+						var submit = function (v, h, f) {
+							if (v == 'ok'){
+								$('#YpForm').submit();
+							}
+							return true;
+						};
+						top.YpBox.confirm("{:L('real_delete')}", "Message", submit); 
+				}
+				</script>
+
+
+	</div>
+ 
+

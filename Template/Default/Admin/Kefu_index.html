@@ -1,0 +1,116 @@
+
+ 
+
+<table  class="search_table" width="100%">
+	<tr>
+		<td class="search">
+			<form action="{:U($module_name.'/index')}" method="get">
+			<input type="hidden" name="g" value="{$Think.GROUP_NAME}" />
+			<input type="hidden" name="m" value="{$Think.MODULE_NAME}" />
+			<input type="hidden" name="a" value="{$Think.ACTION_NAME}" />	
+
+			<input id="title" type="text" class="input-text" name="keyword" value="{$keyword}" />
+			<select name="searchtype">
+			{if $fields['name']}<option value="title" {if $searchtype=='name'}selected="selected"{/if}>{:L('name')}</option>{/if}
+			{if $fields['title']}<option value="title" {if $searchtype=='title'}selected="selected"{/if}>{:L('title')}</option>{/if}
+			{if $fields['username']}<option value="username" {if $searchtype=='username'}selected="selected"{/if}>{:L('username')}</option>{/if}
+			{if $fields['keywords']}<option value="keywords" {if $searchtype=='keywords'}selected="selected"{/if}>{:L('keywords')}</option>{/if}
+			<option value="id" {if $searchtype=='id'}selected="selected"{/if}>ID</option>
+			</select>
+			{if $fields['catid']}
+			<select id="catid" name="catid">
+			<option value="">{:L('select_category')}</option>
+			{$select_categorys}
+			</select>
+			{/if}
+
+			{if $fields['typeid']}
+			<select id="typeid" name="typeid">
+			<option value="">{:L('select_typeid')}</option>
+			{loop $Type $row}
+			{if $row['parentid']==1}<option value="{$row['typeid']}" {if $typeid==$row['typeid']}selected="selected"{/if}>{$row['name']}</option>{/if}
+			{/loop} 
+			</select>
+			{/if}
+
+
+			{if $fields['posid']}
+			<select id="posid" name="posid">
+			<option value="">{:L('select_posids')}</option>
+			{loop $posids $row}
+			<option value="{$row['id']}" {if $posid ==$row['id']}selected="selected"{/if}>{$row['name']}</option>
+			{/loop} 
+			</select>
+			{/if}
+			
+			<select id="order" name="order">
+			<option value="">{:L('listorder')}</option>
+			<option value="id" {if $order =='id'}selected="selected"{/if}>ID</option>
+			<option value="hits" {if $order =='hits'}selected="selected"{/if}>{:L('hits')}</option>
+			</select>
+			
+			<select name="sort">
+				<option value="asc" {if $sort =='asc'}selected="selected"{/if}>{:L('order_by_asc')}</option>
+				<option value="desc" {if $sort =='desc'}selected="selected"{/if}>{:L('order_by_desc')}</option>
+			</select>
+
+			<select name="listRows">
+				<option value="15" {if $listRows ==5}selected="selected"{/if}>15{:L('listRows')}</option>
+				<option value="20" {if $listRows ==20}selected="selected"{/if}>20{:L('listRows')}</option>
+				<option value="50" {if $listRows ==50}selected="selected"{/if}>50{:L('listRows')}</option>
+				<option value="100" {if $listRows ==100}selected="selected"{/if}>100{:L('listRows')}</option>
+			</select>
+			
+			<input type="hidden" id="menuid" name="menuid" value="{$_GET['menuid']}"/>
+			<input type="submit" value="{:L('chaxun')}"  class="button" />
+			<input type="reset" value="{:L('reset')}" class="button"  />
+			</form>
+		</td>
+		
+	</tr>
+</table>
+
+
+<form name="YpForm" id="YpForm" action="" method="post">
+
+<div class="table-list">
+    <table width="100%" cellspacing="0">
+		<thead> 
+            <tr> 
+			<th width="30"><input type="checkbox" value="" id="check_box" onclick="selectall('ids[]');"></th> 
+            <th width="40">{:L('listorder')}</th> 
+            <th width="40">ID</th> 
+			<th width="100" align="left">{:L('name')}</th> 
+            <th width="80" align="left">{:L('type')}</th> 
+			<th width="120"  align="left">{:L('skin')}</th> 
+            <th  align="left">{:L('code')}</th>            
+			<th width="72">{:L('manage')}</th> 
+            </tr> 
+        </thead> 
+      	<tbody>
+      		{loop $list $vo}
+      		<tr>
+			<td  width="30" align="center"><input class="inputcheckbox " name="ids[]" value="{$vo['id']}" type="checkbox" ></td> 
+			<td width="40" align='center'><input name='listorders[{$vo.id}]' type='text' size='3' value='{$vo.listorder}' class='input-text-c'></td> 
+			<td align="center">{$vo['id']}</td>
+      		<td>{$vo['name']}</td>
+			<td>{fieldoption($fields['type'],$vo['type'])}</td>
+      		<td>{fieldoption($fields['skin'],$vo['skin'])}</td>      		
+      		<td>{stripcslashes($vo['code'])}</td>			
+			<td align="center"><a href="{:U($module_name.'/edit',array(id=>$vo['id']))}">{:L('edit')}</a> | <a href="javascript:confirm_delete('{:U($module_name.'/delete',array(id=>$vo['id']))}')">{:L('delete')}</a></td>      		
+      		</tr>
+      		{/loop}
+      	</tbody>
+    </table>
+  
+    <div class="btn"><input type="button" class="button" name="dosubmit" value="<?php echo L('delete')?>" onclick="YpForm.action='{:U($module_name.'/deleteall')}';return confirm_deleteall()"/> <input  type="button" class="button" name="dosubmit" value="<?php echo L('listorder')?>" onclick="YpForm.action='{:U($module_name.'/listorder')}';$('#YpForm').submit();" /></div> 
+
+</form></div>    
+
+<div id="pages" class="page">{$page}</div>
+<script>
+$("#catid").attr("value",'{$catid}');
+function confirm_deleteall(){
+	art.dialog.confirm("{:L('real_delete')}", function(){ $('#YpForm').submit();});
+}
+</script>

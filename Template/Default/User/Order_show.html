@@ -1,0 +1,244 @@
+
+<style>.order_box {margin-top:10px;} #cart_box {margin:10px;}.order_b1 {border:1px solid #ccc;}</style>
+ 
+ 
+	<div class="right">
+		 
+			<h5 class="title"><b>{:L(VIEW_ORDER)}</b></h5>
+			
+				<div id="cart_box">
+					
+						<span style="float:right;padding:5px;">{:L(ORDER_ADD_TIME)}:{toDate($order['add_time'],'Y-m-d H:i:s')}</span> <span style="float:left;padding:5px;color:#FB0000;">{:L(ORDER_SN)}:{$order['sn']}</span>
+						<div class="c"></div>
+
+						 <div class="order_box">
+							<h2><span></span> {:L(order_status)}</h2>
+
+							<table class="order_table"   cellspacing='1' cellpadding='3' >
+									<tr><th  width="125" >{:L(order_status)}：</th><td align="center" width="80">{:L("order_status_".$order[status])}</td><td>{if $order['status']<2 && $order['pay_status']<2 && $order['shipping_status']==0 } <input type="button" class="button" value="{:L('order_status_3')}"  onclick="order_save('order_status',3);">{/if}</td></tr>
+									<tr><th  width="125" >{:L(pay_status)}：</th><td align="center" width="80">{:L("pay_status_".$order[pay_status])}</td><td>{if $order['pay_status']==0}{$paybutton} {elseif $order[pay_status]==2  && $order['status']!=2 }<input type="button" class="button" value="{:L('pay_status_3')}" onclick="order_save('pay_status',3);">{/if}</td></tr>
+									<tr><th  width="125" >{:L(shipping_status)}：</th><td align="center" width="80">{:L("shipping_status_".$order[shipping_status])}</td><td>{if $order['shipping_status']==1}<input type="button" class="button" value="己收货" onclick="order_save('shipping_status',2);">{elseif $order['shipping_status']==2  && $order['status']!=2}<input type="button" class="button" value="{:L('shipping_status_3')}" onclick="order_save('shipping_status',3);">{/if}</td></tr>
+							</table>
+
+						</div>
+						<div class="c"></div>
+
+						<div class="order_box ">
+							<h2> {:L(Order_address_info)}</h2>
+
+ 
+
+							{if $order['pay_status']==0}
+							<div  id="address_from" style="display:none;">
+								<table class="order_table"   cellspacing='1' cellpadding='3' >
+									<tr><th width="125"> {:L(Order_address_area)}：</th><td> <div id="areaselect"> 
+									 <select name="province" id="province" onchange="area_change(this.value, 1,'province','city','area');" class="ddlbox" ><option value="0">{:L(Order_select_province)}</option>
+									 </select>
+									 <select name="city" onchange="area_change(this.value, 2,'province','city','area');" id="city" class="ddlbox" >
+									 <option value="0">{:L(Order_select_city)}</option>
+									</select>
+									<select name="area" onchange="area_change(this.value, 3,'province','city','area');" id="area" class="ddlbox" >
+									<option value="0">{:L(Order_select_area)}</option>
+									</select><font color="red">*</font>
+								</div>
+								<script>area_change(0, 0,'province','city','area','{$order.province}','{$order.city}','{$order.area}');</script></td></tr>
+
+									<tr><th  width="125" >{:L(Order_address_consignee)}： </th><td><input name="consignee" class="input-text" id="consignee"type="text" size="50" value="{$order.consignee}" /><font color="red">*</font></td></tr>
+									<tr><th  width="125" >{:L(Order_address_address)}： </th><td><input   name="address" class="input-text"  id="address" type="text" size="50"  value="{$order.address}" /><font color="red">*</font> </td></tr>									
+									<tr><th  width="125" >{:L(Order_address_mobile)}： </th><td><input name="mobile" class="input-text"  id="mobile" type="text" size="50"  value="{$order.mobile}"/><font color="red">*</font></td></tr>
+									<tr><th  width="125" >{:L(Order_address_tel)}：</th><td><input name="tel" class="input-text"  id="tel"  type="text" size="50"  value="{$order.tel}" /></td></tr>
+									<tr><th  width="125" >{:L(Order_address_email)}： </th><td><input name="email" class="input-text"  id="email"type="text" size="50"  value="{$order.email}"/></td></tr>
+									<tr><th  width="125" >{:L(Order_address_zipcode)}： </th><td><input name="zipcode" class="input-text"  id="zipcode" type="text" size="50"  value="{$order.zipcode}"/></td></tr>
+ 
+								</table>
+								<input type="button" value="{:L(SAVE_ADDRESS)}" onclick="address_save()" />
+							</div>
+							{/if}
+
+							<div  id="address_showbox">
+							
+								<table class="order_table"   cellspacing='1' cellpadding='3' >
+									<tr><th  width="125" >{:L(Order_address_consignee)}： </th><td><span id="consignee_show">{$order['consignee']}<span></td></tr>
+									<tr><th  width="125" >{:L(Order_address_address)}： </th><td><span id="address_show">{$Area[$order[province]]}  - {$Area[$order[city]]}   -  {$Area[$order[area]]} &nbsp;{$order.address}</span></td></tr>
+									<tr><th  width="125" >{:L(Order_address_mobile)}：</th><td><span id="mobile_show">{$order.mobile}</span></td></tr>
+									<tr><th  width="125" >{:L(Order_address_tel)}： </th><td><span id="tel_show">{$order.tel}</span></td></tr>
+								</table>
+								{if $order['pay_status']==0}<input type="button" value="{:L(edit)}" onclick="address_edit()" />{/if}
+							</div>
+
+						</div>
+						<div class="c"></div>
+
+
+						<div class="order_box order_userinfo">
+							<h2>{:L(PAY_SHIPPING_TYPE)}</h2>
+							<table class="order_table"   cellspacing='1' cellpadding='3' >
+									<tr><th  width="125" >{:L(Order_payment_type)}：</th><td>{$paybutton}</td></tr>
+									<tr><th  width="125" >{:L(SHIPPING_NAME)}：</th><td>{$order['shipping_name']}</td></tr>
+									<tr><th  width="125" >{:L(Order_shipping_sn)}：</th><td>{$order['shipping_sn']}</td></tr>
+							</table>
+							
+						</div>
+						<div class="c"></div>
+
+
+
+
+
+						<div class="order_box order_data">
+							<h2>{:L(Order_product_info)}</h2>
+							 
+								<table  class="order_table"    width="100%" border="0" cellspacing="1" cellpadding="3" align="center">
+								  <tr align="center">
+									<th width="15%">{:L(Order_product_thumb)}</th>
+									<th width="30%">{:L(Order_product_name)}</th>
+									<th width="15%">{:L(Order_product_attr)}</th>
+									<th width="10%">{:L(Order_product_price)}</th>
+									<th width="10%">{:L(Order_product_number)}</th>
+									<th width="13%">{:L(Order_product_small_count)}（RMB）</th>
+									 
+								  </tr>
+								  {if empty($order_data)}
+									 <tr align="center">
+									 <td colspan="6"  style="padding:10px;border:0;color:#FB0000;" align="center">{:L(Order_no_product)}</td>
+									 </tr>
+								 {else}
+								 {loop $order_data $vo}
+								
+								  <tr align="center">
+									<td height="70" style="border-left:none;"><a href="{$vo['product_url']}"  target="_blank"><img src="{thumb($vo['product_thumb'])}" alt="{$vo['product_name']}" width="60" height="60"/></a></td>
+									<td><a href="{$vo['product_url']}"  target="_blank" class="del">{$vo['product_name']}</a></td>
+									<td>{$vo['attr']}</td>
+									<td>{$vo['product_price']}</td>
+									<td>
+									{$vo['number']}
+									</td>
+									<td ><span class="count_price" id="count_price_{$vo['product_id']}">{number_format($vo['price'],2)}</span></td>
+									
+								 </tr>
+								{/loop}
+								{/if}
+								</table>
+						
+							 <div id="prototal" >
+									 {:L(Order_product_amount)}：￥{number_format($order[amount],2)}&nbsp;&nbsp;&nbsp;&nbsp;<br>
+
+										{if $order[shipping_fee]>0}+ {:L(Order_shipping_fee)}：￥{number_format($order[shipping_fee],2)}&nbsp;&nbsp;&nbsp;&nbsp;<br>{/if}
+										{if $order[insure_fee]>0}+ {:L(Order_insure_fee)}：￥{number_format($order[insure_fee],2)}&nbsp;&nbsp;&nbsp;&nbsp;<br>{/if}
+										{if $order[pay_fee]>0}+ {:L(Order_pay_fee)}：￥{number_format($order[pay_fee],2)}&nbsp;&nbsp;&nbsp;&nbsp;<br>{/if}
+										{if $order[invoice_fee]>0}+ {:L(Order_invoice_fee)}：￥{number_format($order[invoice_fee],2)}&nbsp;&nbsp;&nbsp;&nbsp;<br>{/if}						
+										{if $order[discount]!=0}- {:L(Order_discount)}：￥{number_format($order[discount],2)}&nbsp;&nbsp;&nbsp;&nbsp;<br>{/if}
+
+										<hr><p style="font-size:16px;padding:10px 0;">
+										<strong >{:L(Order_amount)}：</strong><b style="font-size:16px;">￥{number_format($order[order_amount],2)}</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>
+										</p>
+							</div>
+							 
+						</div>
+						<div class="c"></div>
+				
+						
+				</div>
+				
+
+
+		 
+
+	</div>
+ 
+<script>
+var num=0,doid;
+var submit = function (v, h, f) {
+
+	var datas={ 'id':'{$order.id}', 'num':num};
+
+	 if (v == 'ok'){
+		 alert("YP_APP?g=User&m=Order&a=ajax&do="+doid);
+		$.ajax({
+			type:"POST",
+			url: "YP_APP?g=User&m=Order&a=ajax&do="+doid,
+			data: datas,
+			timeout:"4000",
+			dataType:"JSON",
+			success: function(data){ 
+				if(data.id){
+					$.YpBox.success( '{:L(DO_OK)}', 'Message',{timeout:'2000'}); 
+					setTimeout(function(){	window.location.href = '{:U("Order/show?id=".$order[id])}';},1000);
+				}else{
+					$.YpBox.error('{:L(do_error)}', 'error',{timeout:'2000'});
+				}
+			},
+			error:function(){
+				$.YpBox.error('Link error,{:L(do_error)}', 'error',{timeout:'2000'});
+			}
+		});
+		return true;
+	}else if(v == 'cancel'){
+		return true;
+	}
+  
+};
+
+function order_save(doit,num){ 
+	num =num;
+	doid = doit;
+	$.YpBox.confirm("{:L(ORDER_EDIT_STATUS)}", "{:L(Warning)}", submit);
+}
+
+
+
+{if $order['pay_status']==0}
+	function address_edit(){
+		$('#address_from').show();
+		$('#address_showbox').hide();
+	}
+	function address_save(){
+	var province = $('#province').val();
+		var city = $('#city').val();
+		var area = $('#area').val();
+		var address = $('#address').val();
+		var zipcode = $('#zipcode').val();
+		var consignee = $('#consignee').val();
+		var tel = $('#tel').val();
+		var email = $('#email').val();
+		var mobile = $('#mobile').val();
+		if(province=='' || city=='' || area=='' || address=='' || consignee=='' || mobile==''){
+			$.YpBox.error('{:L(SHIPPING_ADDRESS_NO_FULL)}', 'error',{timeout:'2000'});
+			return false;
+		}
+		
+		var address_datas={ id:'{$order.id}', 'address':address,'province':province,'city':city,'area':area,'zipcode':zipcode,'consignee':consignee,'tel':tel,'email':email,'mobile':mobile};
+		
+		$.ajax({
+			type:"POST",
+			url: "YP_APP?g=User&m=Order&a=ajax&do=saveaddress",
+			data: address_datas,
+			timeout:"4000",
+			dataType:"JSON",
+			success: function(data){ 
+				if(data.id){
+
+					show_address_province  =  $("#province").find("option:selected").text();
+					show_address_city   =  $("#city").find("option:selected").text();
+					show_address_area   =  $("#area").find("option:selected").text();
+
+					$('#consignee_show').html(consignee);
+					$('#address_show').html(show_address_province+ ' - '+show_address_city+' - '+show_address_area+' '+address);
+					$('#tel_show').html(tel);
+					$('#mobile_show').html(mobile);
+
+					$('#address_from').hide();
+					$('#address_showbox').show();
+					$.YpBox.success( '{:L(DO_OK)}', 'Message',{timeout:'2000'});
+				}else{
+					
+					$.YpBox.error('{:L(do_error)}', 'error',{timeout:'2000'});
+				}
+			},
+			error:function(){
+				$.YpBox.error('{:L(do_error)}', 'error',{timeout:'2000'});
+			}
+		});
+	}
+{/if}
+</script>

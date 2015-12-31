@@ -1,0 +1,77 @@
+
+<div class="table-list">
+    <table width="100%" cellspacing="0">
+        <thead>
+      		<tr>
+      	 
+			<th width="240" align="left">{:L('editfiles')} ({count($file_1)})</th>
+			<th width="110" align="left">{:L('file_edittime')}</th>
+			<th width="80" align="left">{:L('file_size')}</th>
+			<th  width="120">{:L('manage')}</th>
+      		</tr>
+      	</thead>
+      	<tbody>
+			{loop $file_1 $vo}
+      		<tr>
+      	 
+			<td align="left">{$vo['file']}</td>
+      		<td align="left">{toDate($vo['filemtime'],'Y-m-d H:i:s')}</td> 
+      		<td align="left">{$vo['filesize']}</td>
+			<td align="center"><a href="javascript:void(0)" onclick="art.dialog.open('{:U('Upgrade/view',array(file=>$vo['file']))}', { id:'viewfile', title: '{:L('view')}',lock: 1,width: 600,	height: 400,cancel: true,ok: false});">{:L('view')}</a> | <a href="{$vo['gourl']}" target="_blank">{:L('gourl')}</a></td>	
+      		</tr>
+      		{/loop}
+      	</tbody>
+    </table> 
+<br>
+
+	<table width="100%" cellspacing="0">
+        <thead>
+      		<tr>
+      	 
+			<th width="240" align="left">{:L('lostfile')} ({count($file_2)})</th>
+			<th width="110" align="left">{:L('file_edittime')}</th>
+			<th width="80" align="left">{:L('file_size')}</th>
+			<th  width="120">{:L('manage')}</th>
+      		</tr>
+      	</thead>
+      	<tbody>
+      		{loop $file_2 $vo}
+      		<tr>
+      	 
+			<td align="left">{$vo['file']}</td>
+      		<td align="left">{toDate($vo['filemtime'],'Y-m-d H:i:s')}</td> 
+      		<td align="left">{$vo['filesize']}</td>
+			<td align="center"><a href="javascript:void(0)" onclick="art.dialog.open('{:U('Upgrade/view',array(file=>$vo['file']))}', { id:'viewfile', title: '{:L('view')}',lock: 1,width: 600,	height: 400,cancel: true,ok: false});">{:L('view')}</a> | <a href="{$vo['gourl']}" target="_blank">{:L('gourl')}</a></td> 		
+      		</tr>
+      		{/loop}
+      	</tbody>
+    </table> 
+
+<br>
+
+	<table width="100%" cellspacing="0">
+        <thead>
+      		<tr>
+      	 
+			<th width="240" align="left">{:L('unknowfile')} ({count($file_3)})</th>
+			<th width="110" align="left">{:L('file_edittime')}</th>
+			<th width="80" align="left">{:L('file_size')}</th>
+			<th  width="120">{:L('manage')}</th>
+      		</tr>
+      	</thead>
+      	<tbody>
+      		{loop $file_3 $vo}
+      		<tr>
+      	 
+			<td align="left">{$vo['file']}</td>
+      		<td align="left">{toDate($vo['filemtime'],'Y-m-d H:i:s')}</td> 
+      		<td align="left">{$vo['filesize']}</td>
+			<td align="center"><a href="javascript:void(0)" onclick="art.dialog.open('{:U('Upgrade/view',array(file=>$vo['file']))}', { id:'viewfile', title: '{:L('view')}',lock: 1,width: 600,	height: 400,cancel: true,ok: false});">{:L('view')}</a> | <a href="{$vo['gourl']}" target="_blank">{:L('gourl')}</a></td>   				
+      		</tr>
+      		{/loop}
+      	</tbody>
+    </table> 
+</div>
+ 
+ 
+  <div class="btn"><input type="submit" class="button" onclick="location.href='{$onlyphpfileurl}'" name="dosubmit" value="{:L('only_show_php_file')}" /></div>  </div>

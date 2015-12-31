@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={:C('DEFAULT_CHARSET')}" />
+<title>{:L('welcome')}</title>
+<script type="text/javascript" src="YP_PUB/Js/jquery.min.js"></script>
+<script language="JavaScript">
+<!--
+$.YourphpInc([ 'YP_PUB/Js/yourphp.admin.min.js','YP_PUB/Css/style.css']);
+function confirm_delete(url){
+	var submit = function (v, h, f) {
+		if (v == 'ok'){
+			location.href = url;
+		}
+		return true;
+	};
+	top.YpBox.confirm("{:L('real_delete')}", "Message", submit);
+}
+function selectall(name) {
+	if (document.getElementById("check_box").checked) {
+		$("input[name='"+name+"']").each(function() {
+			this.checked=true;
+		});
+	} else {
+		$("input[name='"+name+"']").each(function() {
+			this.checked=false;
+		});
+	}
+}
+function Tabs(id,title,content,box,on,action){
+	if(action){
+		  $(id+' '+title).click(function(){
+			  $(this).addClass(on).siblings().removeClass(on);
+			  $(content+" > "+box).eq($(id+' '+title).index(this)).show().siblings().hide();
+		  });
+	  }else{
+		  $(id+' '+title).mouseover(function(){
+			  $(this).addClass(on).siblings().removeClass(on);
+			  $(content+" > "+box).eq($(id+' '+title).index(this)).show().siblings().hide();
+		  });
+	  }
+}
+
+function openwin(id,url,title,width,height,lock,yesdo,topurl){ 
+
+	top.YpBox.open("iframe:"+url,title,width,height,{
+			id:id,
+			submit: function (v, h, f){
+				iframeWin = top.YpBox.getIframe(id);
+				if (v == 'ok'){
+					if(yesdo || topurl){
+						if(yesdo){
+							yesdo.call(this,iframeWin, id,inputid); 
+						}else{
+							top.jBox.close(true);
+							top.location.href=topurl;
+						}
+					}else{
+						var form = $(iframeWin).contents().find('#dosubmit');
+						$(form).click();
+						return false;
+					}
+
+				}
+			}
+		});
+ 
+}
+
+function showpicbox(url){
+	top.YpBox( '<img src="'+url+'" />',{width:'auto'});
+} 
+//-->
+</script>
+</head>
+<body width="100%" style="overflow-x:hidden;">
+<div id="loader" >{:L('load_page')}</div>
+<div id="result" class="result none"></div>
+<div class="mainbox">
+
+{if empty($_GET['isajax'])}
+	<div id="nav" class="mainnav_title">
+	<div id="lang">
+	{if APP_LANG}
+		<?php
+		parse_str($_SERVER['QUERY_STRING'],$urlarr);
+		unset($urlarr[l]);
+		$url='?'.http_build_query($urlarr);
+		?>
+		{loop $Lang $langvo}		 
+			<a href="{$url}&l={$langvo.mark}" {if $langvo[mark]==$_SESSION['YP_lang']} class="on"{/if}>{$langvo.name}</a>
+		{/loop}
+	{/if}
+	</div>
+	<ul><a href="{:U($nav[bnav][model].'/'.$nav[bnav][action],$nav[bnav][data])}">{$nav.bnav.name}</a>|
+	{loop $nav[nav] $vonav}	
+	{if $vonav[data][isajax]}
+	<a href="javascript:void(0);" onclick="openwin('{$vonav[action]}','{:U($vonav[model].'/'.$vonav[action],$vonav[data])}','{$vonav.name}',600,440)">{$vonav.name}</a>|
+	{else}
+	<a href="{:U($vonav[model].'/'.$vonav[action],$vonav[data])}">{$vonav.name}</a>|
+	{/if}
+	{/loop}</ul>
+	</div>
+	<script>
+	//|str_replace=YP_PATH.'/index.php','',###
+	var onurl ='{$_SERVER["REQUEST_URI"]}';
+	jQuery(document).ready(function(){
+		$('#nav ul a ').each(function(i){
+		if($('#nav ul a').length>1){
+			var thisurl= $(this).attr('href');
+			thisurl = thisurl.replace('&menuid={:cookie("menuid")}','');
+			if(onurl.indexOf(thisurl) == 0 ) $(this).addClass('on').siblings().removeClass('on');
+		}else{
+			$('#nav ul').hide();
+		}
+		});
+		if($('#nav ul a ').hasClass('on')==false){
+		$('#nav ul a ').eq(0).addClass('on');
+		}
+	});
+	</script>
+{/if}
+{__CONTENT__}

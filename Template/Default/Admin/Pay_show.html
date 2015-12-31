@@ -1,0 +1,44 @@
+ 
+			 	 
+<table width="100%" cellspacing="0" class="table_form">
+
+			 <tr>
+			<th width="120">{:L('PAY_NO')}:</th>
+			<td>{$vo.sn}</td>
+			 </tr>
+
+			 <tr>
+			<th>{:L('PAY_MANEY')}:</th>
+			<td><font color="red"><b>{$vo.money}</b></font>&nbsp;{if $vo['type']==1}{L('yuan')}{else}{L('DIAN')}{/if}							
+			&nbsp;&nbsp;&nbsp;
+				{if $vo[status]==2}
+					<font style="color:#008000">{L('PAY_STATUS_'.$vo[status])}</font>
+				{else}
+					<font style="color:#CC0000">{L('PAY_STATUS_'.$vo[status])}</font>
+				{/if}
+			</td>
+			 </tr>
+		  <tr>
+			   <th>{:L('PAY_TYPE')}:</th>
+			   <td> 
+					 {$vo['payment']}
+				</td>
+			 </tr>
+		  <tr>		
+			<th>{:L('PAY_USER_EMAIL')}:</th>
+			   <td> {$vo['email']}</td>
+			 </tr>
+			 <tr>
+			   <th>{:L('PAY_USER_NAME')}:</th>
+			   <td>{$vo['contactname']}</td>
+			 </tr>
+			 <tr>
+			   <th>{:L('PAY_USER_TEL')}:</th>
+			   <td>{$vo['telephone']}</td>
+			 </tr>
+			 
+			 <tr>
+			   <th>{:L('PAY_USER_NOTE')}:</th>
+			   <td>{$vo['usernote']}</td>
+			 </tr>
+</table>

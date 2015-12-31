@@ -1,0 +1,29 @@
+<?php  $slide_pic=$slide_link=$slide_title=array(); ?>
+{loop $data $r}
+	<?php $slide_pic[] =$r[pic];$slide_link[]=urlencode($r[link]);$slide_title[]=$r[title];	?>
+{/loop}
+<script>
+$.YourphpInc('YP_PUB/Js/swfobject.js');
+</script>
+<div id='flash_{$flashid}'></div>
+<script type="text/javascript">
+var swfpath = 'flash/flash01.swf';
+var pics='{:implode('|',$slide_pic)}';
+var links='{:implode('|',$slide_link)}';
+var texts='{:implode('|',$slide_title)}';
+var pic_width={$flash[width]};
+var pic_height={$flash[height]};
+var text_height=0;
+var flashvars={ },params={ },attributes={ };
+params.allowScriptAccess = "sameDomain";
+params.quality = "high";
+params.menu = "false";
+params.wmode = "opaque";
+flashvars.pics = pics;
+flashvars.links = links;
+flashvars.texts = texts;
+flashvars.borderwidth = pic_width;
+flashvars.borderheight = pic_height;
+flashvars.textheight = text_height;
+swfobject.embedSWF(swfpath, "flash_{$flashid}", "{$flash[width]}", "{$flash[height]}", "6.0.0", "expressInstall.swf", flashvars, params, attributes);
+</script>

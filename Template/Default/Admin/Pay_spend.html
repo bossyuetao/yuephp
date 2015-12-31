@@ -1,0 +1,58 @@
+ 
+
+  
+ 
+		  
+			 	<table  class="search_table" width="100%">
+				<tr>
+					<td class="search">
+						<form action="{:U($module_name.'/index')}" method="get">
+						<input type="hidden" name="m" value="{MODULE_NAME}" />
+						<input type="hidden" name="a" value="{ACTION_NAME}" />
+
+						{L('USERNAME')}: <input type="text" class="input-text" name="username" value="{$username}">
+						{L(PAY_TIME_1)}:
+						<input  class="Wdate input-text  "  validate=" required:true"  style="width:100px;" name="start_time" type="text" id="start_time" size="15" DateFormat="yyyy-MM-dd" value="{if $start_time}{todate($start_time,"Y-m-d")}{/if}" />{L(PAY_TIME_2)} 
+						<input  class="Wdate input-text  "  validate=" required:true"  style="width:100px;" name="end_time" type="text" id="end_time" size="15" DateFormat="yyyy-MM-dd" value="{if $end_time}{todate($end_time,"Y-m-d")}{/if}" />
+
+						<select id="type" name="type">
+						<option value="">{L('PAY_SPEND_TYPE')}</option>
+						<option value="1" {if $type ==1}selected="selected"{/if}>{L(PAY_SPEND_TYPE_1)}</option>
+						<option value="2" {if $type ==2}selected="selected"{/if}>{L(PAY_SPEND_TYPE_2)}</option>
+						</select>
+						<input type="hidden" id="menuid" name="menuid" value="{intval($_GET['menuid'])}"/>
+						<input type="submit" value="{:L('chaxun')}"  class="button" />
+						</form>
+					</td>
+
+				</tr>
+			</table>
+			<div class="table-list">
+				<table width="100%" cellspacing="0">
+					<thead>
+						<tr>
+						<th width="80">{L('USERNAME')}</th>
+						<th width="240">{L('PAY_NOTE')}</th>
+					    <th width="140" align="center">{L('createtime')}</th>
+						<th width="70">{L('PAY_DO_USER')}</th>
+						<th width="70">{L('PAY_SPEND_TYPE')}</th>
+						<th width="70">{L('PAY_SPEND_MONEY')}</th>
+						</tr>
+					</thead>
+					<tbody>
+					{loop $list $r}
+						<tr>
+						<td align="center">{$r['username']}</td>
+						<td align="center">{$r['note']}</td>
+						<td  align="center">{todate($r['createtime'],"Y-m-d H:i:s")}</td>
+						<td align="center">{if $r['op_username']}{$r['op_username']}{else}{L('PAY_DO_SELF')}{/if}</td>
+						<td align="center">{L('PAY_SPEND_TYPE_'.$r[type])}</td>
+						<td align="center">{$r['value']}</td>
+						</tr>
+					{/loop}
+					</tbody>
+				</table> 
+			</div>
+
+			<div id="pages" class="page">{$page}</div>
+	 

@@ -1,0 +1,32 @@
+
+
+<div class="left">
+		<div class="pos"><b></b><span>{:L(catpos)}<a href="{:URL()}">{:L(home_font)}</a> &gt {YP:catpos  catid="$catid" space=" &gt " } {:L(SEARCH_RESULTS)}</span></div>
+ 
+
+		<div style="margin:12px;background:#EFEFEF;padding:10px;">
+		<form method="GET" action="index.php?">
+			<input type="hidden" id=""  name="m" value="Search"/>{if  APP_LANG}<input type="hidden" name="l" value="{:LANG_NAME}" />{/if}
+			<input type="text" name="keyword" id="" class="input-text" value="{$keyword}" />
+			{:Form::select(array('field'=>'moduleid','options'=>$search_module),$moduleid)}
+			<input type="submit" class="button" value="{:L(SEARCH)}" />
+		</form>
+		</div>
+
+		<div class="list">
+			<ul class="txt">
+				{loop $list $r}
+						<li><span class="date">[{toDate($r[createtime],'Y-m-d')}]</span><a href="{$r.url}" target="_blank">{$r.title}</a></li>
+				{/loop}
+			</ul>
+		</div>
+		<div id="pages" class="page">{$pages}</div>
+
+		<br>
+</div>
+
+
+
+
+
+
